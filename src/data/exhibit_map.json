@@ -1,0 +1,70 @@
+[
+  {
+    "id": "A",
+    "name": "透光大理石全抛釉",
+    "english": "LumiMarble Full-Polished",
+    "image": "./images/zone_A.jpg",
+    "coreSpec": "包裹色+高底白搭配",
+    "process": "超白坯體+化妝土(白度高)+噴墨+全拋釉",
+    "overview": "拆板分色重要性高。此款發色細膩、極具通透感，展現極致白度與透明釉結合力的代表作。"
+  },
+  {
+    "id": "B",
+    "name": "透光大理石全抛釉",
+    "english": "LumiMarble Full-Polished",
+    "image": "./images/zone_B.png",
+    "coreSpec": "包裹色+高底白搭配",
+    "process": "超白坯體+化妝土(白度高)+噴墨+全拋釉",
+    "overview": "拆板分色重要性高。此款發色細膩、極具通透感，展現極致白度與透明釉結合力的代表作。"
+  },
+  {
+    "id": "C",
+    "name": "定位彩晶乾粒全拋釉",
+    "english": "Crystal Version Digital-Aligned Full Polished",
+    "note": "展場核心主磚",
+    "image": "./images/zone_C.png",
+    "coreSpec": "高白度+包裹黃+定位星空",
+    "process": "化妝土+噴墨+定位膠水+星空乾粒+整面乾粒",
+    "overview": "精準膠水定位，營造若隱若現的晶瑩星空反光，本次展位的核心亮點主磚。"
+  },
+  {
+    "id": "D",
+    "name": "精雕噴墨地毯磚",
+    "english": "Carved Inkjet Carpet Effect / Glossy Carved Sugar Effect",
+    "image": "./images/zone_D.png",
+    "process": "化妝土+噴墨(精雕墨水)+面釉",
+    "overview": "精雕墨水燒成產生淺浮凸刻痕，完美還原編織地毯的觸感與立體微陰影。"
+  },
+  {
+    "id": "E",
+    "name": "珠光乾粒效果 / 絲綢柔光釉效果",
+    "english": "Pearl Granule Effect / Silk smooth Satin Effect",
+    "image": "./images/zone_E.png",
+    "process": "左-化妝土+噴墨+細緻無光面釉(可做一石兩面)；右-化妝土+閃光釉+噴墨",
+    "overview": "精雕墨水燒成產生淺浮凸刻痕，完美還原編織地毯的觸感與立體微陰影。"
+  },
+  {
+    "id": "F",
+    "name": "大理石全拋釉 / 星空乾粒大理石",
+    "english": "Luxury Marble Glazed Polished / Starry Black Marble",
+    "image": [
+      "./images/zone_F_1.png",
+      "./images/zone_F_2.png"
+    ],
+    "process": "左-化妝土+噴墨+面釉(柔拋)；右-化妝土+噴墨+定位膠水+星空乾粒+整面乾粒",
+    "overview": "高對比度搭配星空微粒，使紋理立體而神秘。"
+  },
+  {
+    "id": "G",
+    "name": "透光大理石全抛釉",
+    "english": "LumiMarble Full-Polished"
+  },
+  {
+    "id": "H",
+    "name": "蠟質乾粒 / 數位膠水乾粒 / 柔拋磚",
+    "english": "Matte Wax Granules / Digital Glue Aligned / Honed Finish",
+    "image": "./images/zone_H.png",
+    "process": "中-化妝土+面釉+噴墨膠水+乾粒機；左、右-化妝土+面釉+噴墨+乾粒整面拋",
+    "overview": "蠟質乾粒展現平整與溫潤消光，具博物館特有的沉穩靜謐美感。"
+  }
+]

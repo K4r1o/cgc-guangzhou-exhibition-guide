@@ -1,0 +1,57 @@
+const fs = require('fs');
+
+const data = [
+  {
+    "id": "soft-matt",
+    "name": "霧柔緞面 乾粒效果",
+    "english": "Soft Matt Effect",
+    "images": ["/images/catalog_1.jpg"],
+    "structure": "以 CG-4732 作為基礎保護底釉，表面均勻噴撒 CD-755 專用熔塊乾粒。",
+    "characteristics": "藉由 CG-4732 柔面特性，在高溫燒成時與GD05乾粒共熔，形成堅硬帶柔滑的觸感。",
+    "appearance": "呈現如天鵝絨般的低調微光，光澤度嚴格控制在 5° - 8° 之間，具備極佳的防污性。",
+    "spec": "本次打樣共計 4 片。"
+  },
+  {
+    "id": "satin-matt",
+    "name": "細緻啞光 乾粒效果",
+    "english": "Satin Matt Effect",
+    "images": [
+      "/images/catalog_2_1.jpg",
+      "/images/catalog_2_2.png"
+    ],
+    "structure": "基礎釉料採用 CG-4725-1，搭配 CD-716sx 粒徑較小的細緻乾粒。",
+    "characteristics": "CD-716sx 屬於高透明、中溫軟化點的乾粒配方，在高溫熔融時能與底釉產生部分互溶，減少表面針孔，藉由調整添加乾粒量可獲得特殊的結晶質感。",
+    "appearance": "表面平整度高，具備絲綢般的微啞光澤，防污性能優異，極度適合高階室內牆磚與客廳地磚。",
+    "spec": "本次打樣共計 6 片。"
+  },
+  {
+    "id": "matt-anti-slip",
+    "name": "無光止滑 乾粒效果",
+    "english": "Matt Anti-slip Effect",
+    "images": [
+      "/images/catalog_3_1.jpg",
+      "/images/catalog_3_2.jpg"
+    ],
+    "structure": "改用具有高結構強度的 XG-5118 釉面，結合 CD-755 乾粒。",
+    "characteristics": "以 XG-5118 較高的耐火度結合 CD-755，在不完全熔解的狀態下，使乾粒尖角鈍化，保留晶體表面的微小起伏。",
+    "appearance": "無視覺反光，觸感具備微顆粒阻尼感，可在不犧牲防污性的前提下獲得高止滑力（止滑等級可達 R9 - R10）以及高耐磨兼備的特性，適合居家客廳地板及廚房地板樓梯板使用。",
+    "spec": "本次打樣共計 3 片。"
+  },
+  {
+    "id": "glossy-ink",
+    "name": "亮墨水、乾粒複合效果",
+    "english": "Glossy Ink Effect",
+    "images": [
+      "/images/catalog_4_1.jpg",
+      "/images/catalog_4_2.jpg",
+      "/images/catalog_4_3.jpg",
+      "/images/catalog_4_4.jpg"
+    ],
+    "structure": "以 XG-5118 釉面為基底，噴撒 GD05 乾粒，並局部或全面加噴 G2011 特特殊效果墨水。",
+    "characteristics": "利用噴墨印刷技術，將 G2011 亮光墨水精準定位噴印於乾粒層之上。高溫燒成時，墨水成分促使局部熔塊加速熔融流平。",
+    "appearance": "在無光的磚面上呈現出「局部高亮」或「立體斑駁」的晶瑩對比，光澤反差強烈，極具現代奢華的視覺張力。",
+    "spec": "本次打樣共計 9 片。"
+  }
+];
+
+fs.writeFileSync('src/data/products.json', JSON.stringify(data, null, 2), 'utf8');
