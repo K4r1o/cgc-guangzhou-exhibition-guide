@@ -48,7 +48,7 @@ export default function TransportSchedule() {
       <h2 className="glow-text">送接機&包車</h2>
 
       <div className="card" style={{ marginBottom: '16px', background: 'rgba(255, 152, 0, 0.1)', borderColor: '#ff9800' }}>
-        <div style={{ color: '#ff9800', fontWeight: 'bold', marginBottom: '8px' }}>🚕 司機聯絡方式 (三水大鴻)</div>
+        <div style={{ color: '#ff9800', fontWeight: 'bold', marginBottom: '8px' }}>🚕 司機聯絡方式</div>
         <div style={{ fontSize: '0.9rem', marginBottom: '4px' }}>冼生 13902413514</div>
         <div style={{ fontSize: '0.9rem' }}>雷狄 13927777360</div>
       </div>

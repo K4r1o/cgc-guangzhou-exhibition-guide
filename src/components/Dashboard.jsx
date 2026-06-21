@@ -12,7 +12,19 @@ export default function Dashboard({ setView }) {
 
   return (
     <div className="animate-fade-in">
-      <h2 className="glow-text">Overview</h2>
+      {/* Visual Cover */}
+      <div style={{
+        background: 'linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-cyan) 100%)',
+        borderRadius: '16px',
+        padding: '32px 20px',
+        textAlign: 'center',
+        marginBottom: '24px',
+        boxShadow: '0 8px 32px rgba(102, 252, 241, 0.2)'
+      }}>
+        <h1 style={{ color: '#0B0C10', fontSize: '2rem', fontWeight: '900', margin: 0, textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+          中釉廣州展指南
+        </h1>
+      </div>
       
       <div className="card" style={{ background: 'linear-gradient(135deg, rgba(31,40,51,1) 0%, rgba(11,12,16,1) 100%)', borderColor: 'var(--accent-cyan)' }}>
         <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>即將到來行程</h3>
