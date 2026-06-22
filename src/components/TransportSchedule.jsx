@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import transportData from '../data/transport.json';
 
-export default function TransportSchedule() {
+export default function TransportSchedule({ highlightId }) {
   const [tab, setTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // 當 highlightId 變更時自動滾動
+  useEffect(() => {
+    if (highlightId) {
+      setTimeout(() => {
+        const el = document.getElementById('highlighted-card');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, [highlightId, tab]);
 
   const renderSchedule = (data) => {
     // 關鍵字搜尋過濾
@@ -19,42 +31,60 @@ export default function TransportSchedule() {
       return <div style={{ textAlign: 'center', color: 'var(--text-main)', padding: '32px 0' }}>找不到符合「{searchQuery}」的行程</div>;
     }
 
-    return filteredData.map((item, index) => (
-      <div key={`${item.date}-${item.time}-${index}`} className="card">
-        <div className="flex-between" style={{ marginBottom: '8px' }}>
-          <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--accent-secondary)' }}>{item.date}</div>
-          <div className="badge">{item.time}</div>
+    return filteredData.map((item, index) => {
+      const isHighlighted = highlightId === `${item.date}-${item.time}`;
+      
+      return (
+        <div 
+          key={`${item.date}-${item.time}-${index}`} 
+          id={isHighlighted ? "highlighted-card" : undefined}
+          className="card"
+          style={isHighlighted ? {
+            borderColor: 'var(--accent-primary)',
+            boxShadow: '0 0 20px rgba(0, 229, 255, 0.3)',
+            transform: 'scale(1.02)',
+            transition: 'all 0.5s ease',
+            borderWidth: '2px'
+          } : { transition: 'all 0.3s ease' }}
+        >
+          <div className="flex-between" style={{ marginBottom: '8px' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: isHighlighted ? 'var(--text-inverse)' : 'var(--accent-secondary)' }}>
+              {isHighlighted && <span style={{ marginRight: '6px' }}>👉</span>}
+              {item.date}
+            </div>
+            <div className="badge" style={isHighlighted ? { background: 'var(--accent-primary)', color: '#000' } : {}}>{item.time}</div>
+          </div>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px', fontSize: '0.9rem' }}>
+            <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>路線</div>
+            <div style={{ color: 'var(--text-bold)' }}>{item.route}</div>
+            
+            <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>對象</div>
+            <div style={{ color: 'var(--text-main)' }}>{item.country} / {item.company} {item.pax > 0 ? `(${item.pax}人)` : ''}</div>
+            
+            {item.passengers && (
+              <>
+                <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>搭車人員</div>
+                <div style={{ lineHeight: '1.4', color: 'var(--text-bold)' }}>{item.passengers}</div>
+              </>
+            )}
+            
+            {item.flight && (
+              <>
+                <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>航班</div>
+                <div style={{ color: 'var(--accent-primary)' }}>{item.flight}</div>
+              </>
+            )}
+            
+            <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>負責人</div>
+            <div style={{ color: 'var(--text-main)' }}>{item.leader}</div>
+            
+            <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>車型</div>
+            <div style={{ color: 'var(--text-main)' }}>{item.bus}</div>
+          </div>
         </div>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px', fontSize: '0.9rem' }}>
-          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>路線</div>
-          <div style={{ color: 'var(--text-bold)' }}>{item.route}</div>
-          
-          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>對象</div>
-          <div style={{ color: 'var(--text-main)' }}>{item.country} / {item.company} {item.pax > 0 ? `(${item.pax}人)` : ''}</div>
-          
-          {item.passengers && (
-            <>
-              <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>搭車人員</div>
-              <div style={{ lineHeight: '1.4', color: 'var(--text-bold)' }}>{item.passengers}</div>
-            </>
-          )}
-          
-          {item.flight && (
-            <>
-              <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>航班</div>
-              <div style={{ color: 'var(--accent-primary)' }}>{item.flight}</div>
-            </>
-          )}
-          
-          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>負責人</div>
-          <div style={{ color: 'var(--text-main)' }}>{item.leader}</div>
-          
-          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>車型</div>
-          <div style={{ color: 'var(--text-main)' }}>{item.bus}</div>
-        </div>
-      </div>
-    ));
+      );
+    });
   };
 
   // 取得當前標籤頁的資料

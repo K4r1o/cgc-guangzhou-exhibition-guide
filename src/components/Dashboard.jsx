@@ -15,7 +15,7 @@ const getWeatherInfo = (code) => {
   return { emoji: '☁️', text: '未知' };
 };
 
-export default function Dashboard({ setView, theme, setTheme }) {
+export default function Dashboard({ setView, theme, setTheme, setHighlightId }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [weather, setWeather] = useState({ loading: true, temp: '--', emoji: '☁️', desc: '載入中...' });
 
@@ -81,6 +81,7 @@ export default function Dashboard({ setView, theme, setTheme }) {
     const shortDate = upcoming.date.substring(5).replace('-', '/');
 
     return {
+      rawDate: upcoming.date,
       time: upcoming.time,
       date: shortDate,
       route: upcoming.route.replace('➤', ' → '),
@@ -143,7 +144,18 @@ export default function Dashboard({ setView, theme, setTheme }) {
         </div>
       </div>
       
-      <div className="card" style={{ background: 'var(--header-gradient)', borderColor: 'var(--accent-primary)' }}>
+      <div 
+        className="card" 
+        style={{ background: 'var(--header-gradient)', borderColor: 'var(--accent-primary)', cursor: 'pointer', transition: 'all 0.3s' }}
+        onClick={() => {
+          if (nextEvent) {
+            setHighlightId(`${nextEvent.rawDate}-${nextEvent.time}`);
+            setView('transport');
+          }
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+      >
         <h3 style={{ fontSize: '1rem', marginBottom: '8px', color: 'var(--text-bold)' }}>即將到來行程</h3>
         <div className="flex-between">
           <div>

@@ -8,6 +8,7 @@ import TransportSchedule from './components/TransportSchedule';
 function App() {
   const [view, setView] = useState('home');
   const [theme, setTheme] = useState(localStorage.getItem('app-theme') || 'glass');
+  const [highlightId, setHighlightId] = useState(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -16,11 +17,11 @@ function App() {
 
   const renderView = () => {
     switch(view) {
-      case 'home': return <Dashboard setView={setView} theme={theme} setTheme={setTheme} />;
+      case 'home': return <Dashboard setView={setView} setHighlightId={setHighlightId} theme={theme} setTheme={setTheme} />;
       case 'map': return <ExhibitionMap />;
       case 'products': return <ProductCatalog />;
-      case 'transport': return <TransportSchedule />;
-      default: return <Dashboard setView={setView} theme={theme} setTheme={setTheme} />;
+      case 'transport': return <TransportSchedule highlightId={highlightId} />;
+      default: return <Dashboard setView={setView} setHighlightId={setHighlightId} theme={theme} setTheme={setTheme} />;
     }
   };
 
