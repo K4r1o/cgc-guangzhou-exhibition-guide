@@ -1,8 +1,55 @@
-import React, { useMemo } from 'react';
-import { FaMapMarkedAlt, FaBookOpen, FaBus } from 'react-icons/fa';
+import React, { useMemo, useState, useEffect } from 'react';
+import { FaMapMarkedAlt, FaBookOpen, FaBus, FaClock, FaCloudSun } from 'react-icons/fa';
 import transportData from '../data/transport.json';
 
+// 天氣代碼轉換
+const getWeatherInfo = (code) => {
+  if (code === 0) return { emoji: '☀️', text: '晴天' };
+  if (code === 1 || code === 2) return { emoji: '⛅', text: '多雲' };
+  if (code === 3) return { emoji: '☁️', text: '陰天' };
+  if (code >= 45 && code <= 48) return { emoji: '🌫️', text: '有霧' };
+  if (code >= 51 && code <= 55) return { emoji: '🌧️', text: '毛毛雨' };
+  if (code >= 61 && code <= 65) return { emoji: '🌧️', text: '下雨' };
+  if (code >= 80 && code <= 82) return { emoji: '🌦️', text: '陣雨' };
+  if (code >= 95) return { emoji: '⛈️', text: '雷陣雨' };
+  return { emoji: '☁️', text: '未知' };
+};
+
 export default function Dashboard({ setView, theme, setTheme }) {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [weather, setWeather] = useState({ loading: true, temp: '--', emoji: '☁️', desc: '載入中...' });
+
+  // 即時時鐘
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // 抓取廣州即時天氣
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.1291&longitude=113.2644&current_weather=true');
+        const data = await res.json();
+        const info = getWeatherInfo(data.current_weather.weathercode);
+        setWeather({
+          loading: false,
+          temp: Math.round(data.current_weather.temperature),
+          emoji: info.emoji,
+          desc: info.text
+        });
+      } catch (err) {
+        setWeather({ loading: false, temp: '--', emoji: '⚠️', desc: '無法取得' });
+      }
+    };
+    fetchWeather();
+  }, []);
+
+  // 時間格式化
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const formattedDate = `${currentTime.getMonth() + 1}月${currentTime.getDate()}日 ${weekdays[currentTime.getDay()]}`;
+  const formattedTime = currentTime.toLocaleTimeString('zh-TW', { hour12: false });
+
   // 動態抓取下一筆行程
   const nextEvent = useMemo(() => {
     const allEvents = [
@@ -77,11 +124,64 @@ export default function Dashboard({ setView, theme, setTheme }) {
         padding: '32px 20px',
         textAlign: 'center',
         marginBottom: '24px',
-        boxShadow: '0 8px 32px var(--shadow-hover)'
+        boxShadow: '0 8px 32px var(--shadow-hover)',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        <h1 style={{ color: 'var(--text-inverse)', fontSize: '2rem', fontWeight: '900', margin: 0 }}>
-          中釉廣州展指南
-        </h1>
+        {/* Background Overlay for depth */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+          opacity: 0.5
+        }} />
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <h1 style={{ color: 'var(--text-inverse)', fontSize: '2.2rem', fontWeight: '900', margin: '0 0 16px 0', textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
+            中釉廣州展指南
+          </h1>
+
+          {/* Time & Weather Badge */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '16px',
+            background: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            padding: '8px 16px',
+            borderRadius: '24px',
+            color: 'var(--text-inverse)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            border: '1px solid rgba(255,255,255,0.3)'
+          }}>
+            {/* Clock Section */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FaClock style={{ opacity: 0.9 }} />
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>{formattedDate}</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '1px', lineHeight: '1' }}>
+                  {formattedTime}
+                </div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.3)' }} />
+
+            {/* Weather Section */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '1.4rem', lineHeight: '1' }}>{weather.emoji}</span>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>廣州 {weather.desc}</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 'bold', lineHeight: '1' }}>
+                  {weather.temp}°C
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <div className="card" style={{ background: 'var(--header-gradient)', borderColor: 'var(--accent-primary)' }}>
