@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FaMapMarkedAlt, FaBookOpen, FaBus } from 'react-icons/fa';
+import transportData from '../data/transport.json';
 
 export default function Dashboard({ setView, theme, setTheme }) {
-  // Mock next upcoming event based on transport.json (hardcoded for demo)
-  const nextEvent = {
-    time: "17:10",
-    date: "06/22",
-    route: "白云机场 → 喜來登",
-    bus: "22座"
-  };
+  // 動態抓取下一筆行程
+  const nextEvent = useMemo(() => {
+    const allEvents = [
+      ...transportData.pickup,
+      ...transportData.dropoff,
+      ...transportData.charter
+    ].filter(e => e.date && e.time); // 過濾掉沒有時間的空項目
+
+    // 將字串時間轉換為可比較的 Date 物件
+    const sortedEvents = allEvents.map(e => {
+      // 確保格式為 YYYY-MM-DD HH:mm
+      const dateTimeStr = `${e.date}T${e.time.padStart(5, '0')}:00`;
+      return {
+        ...e,
+        timestamp: new Date(dateTimeStr).getTime()
+      };
+    }).sort((a, b) => a.timestamp - b.timestamp);
+
+    const now = new Date().getTime();
+    
+    // 找出大於等於現在時間的下一個行程
+    let upcoming = sortedEvents.find(e => e.timestamp >= now);
+    
+    // 如果全部都過期了，就顯示最後一個；如果還沒發生，就顯示第一個
+    if (!upcoming && sortedEvents.length > 0) upcoming = sortedEvents[sortedEvents.length - 1];
+    if (!upcoming) return null;
+
+    // 將 2026-06-22 轉成 06/22 顯示
+    const shortDate = upcoming.date.substring(5).replace('-', '/');
+
+    return {
+      time: upcoming.time,
+      date: shortDate,
+      route: upcoming.route.replace('➤', ' → '),
+      bus: upcoming.bus || '不適用'
+    };
+  }, []);
 
   const themes = [
     { id: 'minimalist', label: '高端極簡白', color: '#D4AF37' },

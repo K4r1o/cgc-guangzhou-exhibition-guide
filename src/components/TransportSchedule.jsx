@@ -54,9 +54,9 @@ export default function TransportSchedule() {
       </div>
       
       <div className="tabs">
-        <button className={`btn ${tab === 'pickup' ? 'active' : ''}`} onClick={() => setTab('pickup')}>接機 (Pickup)</button>
-        <button className={`btn ${tab === 'dropoff' ? 'active' : ''}`} onClick={() => setTab('dropoff')}>送機 (Drop-off)</button>
-        <button className={`btn ${tab === 'charter' ? 'active' : ''}`} onClick={() => setTab('charter')}>包車 (Charter)</button>
+        <button className={`btn ${tab === 'pickup' ? 'active' : ''}`} onClick={() => setTab('pickup')}>接機</button>
+        <button className={`btn ${tab === 'dropoff' ? 'active' : ''}`} onClick={() => setTab('dropoff')}>送機</button>
+        <button className={`btn ${tab === 'charter' ? 'active' : ''}`} onClick={() => setTab('charter')}>包車</button>
       </div>
 
       <div style={{ marginTop: '16px' }}>

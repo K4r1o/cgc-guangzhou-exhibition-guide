@@ -12,12 +12,12 @@ export default function ProductCatalog() {
 
   return (
     <div className="animate-fade-in">
-      <h2 className="glow-text">Product Specs</h2>
+      <h2 className="glow-text">產品規格</h2>
 
       <div className="tabs">
-        <button className={`btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
-        <button className={`btn ${filter === 'anti-slip' ? 'active' : ''}`} onClick={() => setFilter('anti-slip')}>Anti-slip</button>
-        <button className={`btn ${filter === 'matt' ? 'active' : ''}`} onClick={() => setFilter('matt')}>Matt</button>
+        <button className={`btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>全部</button>
+        <button className={`btn ${filter === 'anti-slip' ? 'active' : ''}`} onClick={() => setFilter('anti-slip')}>止滑</button>
+        <button className={`btn ${filter === 'matt' ? 'active' : ''}`} onClick={() => setFilter('matt')}>啞光</button>
       </div>
 
       {filteredProducts.map(product => (
