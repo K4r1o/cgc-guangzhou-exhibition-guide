@@ -49,7 +49,8 @@ export default function Dashboard({ setView, theme, setTheme }) {
   return (
     <div className="animate-fade-in">
       {/* Theme Switcher */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+        <span style={{ fontSize: '0.85rem', color: 'var(--text-main)', opacity: 0.8, marginRight: '4px' }}>主題切換</span>
         {themes.map(t => (
           <button
             key={t.id}
@@ -101,7 +102,7 @@ export default function Dashboard({ setView, theme, setTheme }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
         <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px' }} onClick={() => setView('map')}>
           <FaMapMarkedAlt size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
-          <div style={{ fontWeight: '600' }}>展場地圖</div>
+          <div style={{ fontWeight: '600' }}>展磚說明</div>
         </div>
         <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px' }} onClick={() => setView('products')}>
           <FaBookOpen size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
@@ -109,7 +110,7 @@ export default function Dashboard({ setView, theme, setTheme }) {
         </div>
         <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px', gridColumn: 'span 2' }} onClick={() => setView('transport')}>
           <FaBus size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
-          <div style={{ fontWeight: '600' }}>交通時刻表</div>
+          <div style={{ fontWeight: '600' }}>送接機&包車</div>
         </div>
       </div>
     </div>
