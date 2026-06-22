@@ -11,7 +11,6 @@ export default function Dashboard({ setView, theme, setTheme }) {
   };
 
   const themes = [
-    { id: 'blue', label: '現代商務藍', color: '#1565C0' },
     { id: 'minimalist', label: '高端極簡白', color: '#D4AF37' },
     { id: 'glass', label: '磨砂玻璃暗黑風', color: '#00E5FF' }
   ];

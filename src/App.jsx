@@ -7,7 +7,7 @@ import TransportSchedule from './components/TransportSchedule';
 
 function App() {
   const [view, setView] = useState('home');
-  const [theme, setTheme] = useState(localStorage.getItem('app-theme') || 'blue');
+  const [theme, setTheme] = useState(localStorage.getItem('app-theme') || 'glass');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
