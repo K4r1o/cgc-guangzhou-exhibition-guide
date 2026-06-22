@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import transportData from '../data/transport.json';
 
 export default function TransportSchedule() {
   const [tab, setTab] = useState('pickup');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const renderSchedule = (data) => {
-    return data.map((item, index) => (
+    // 關鍵字搜尋過濾
+    const filteredData = data.filter(item => {
+      if (!searchQuery) return true;
+      const q = searchQuery.toLowerCase();
+      // 搜尋物件內的所有欄位值
+      return Object.values(item).some(val => String(val).toLowerCase().includes(q));
+    });
+
+    if (filteredData.length === 0) {
+      return <div style={{ textAlign: 'center', color: 'var(--text-main)', padding: '32px 0' }}>找不到符合「{searchQuery}」的行程</div>;
+    }
+
+    return filteredData.map((item, index) => (
       <div key={index} className="card">
         <div className="flex-between" style={{ marginBottom: '8px' }}>
           <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--accent-secondary)' }}>{item.date}</div>
@@ -46,6 +60,31 @@ export default function TransportSchedule() {
   return (
     <div className="animate-fade-in">
       <h2 className="glow-text">送接機&包車</h2>
+
+      {/* Search Box */}
+      <div style={{ position: 'relative', marginBottom: '16px' }}>
+        <FaSearch style={{ position: 'absolute', left: '16px', top: '14px', color: 'var(--text-main)', opacity: 0.5 }} />
+        <input 
+          type="text" 
+          placeholder="搜尋人員、公司、航班..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '12px 12px 12px 42px',
+            borderRadius: '8px',
+            border: '1px solid var(--border-color)',
+            background: 'var(--bg-card)',
+            color: 'var(--text-bold)',
+            fontSize: '1rem',
+            outline: 'none',
+            boxShadow: '0 4px 12px var(--shadow-color)',
+            transition: 'border-color 0.3s'
+          }}
+          onFocus={(e) => e.target.style.borderColor = 'var(--accent-primary)'}
+          onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+        />
+      </div>
 
       <div className="card" style={{ marginBottom: '16px', borderStyle: 'dashed', borderColor: 'var(--accent-secondary)' }}>
         <div style={{ color: 'var(--accent-secondary)', fontWeight: 'bold', marginBottom: '8px' }}>🚕 司機聯絡方式</div>
