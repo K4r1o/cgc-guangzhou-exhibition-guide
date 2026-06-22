@@ -14,10 +14,39 @@ export default function ProductCatalog() {
     <div className="animate-fade-in">
       <h2 className="glow-text">產品規格</h2>
 
-      <div className="tabs">
+      <div className="tabs" style={{ marginBottom: '16px' }}>
         <button className={`btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>全部</button>
         <button className={`btn ${filter === 'anti-slip' ? 'active' : ''}`} onClick={() => setFilter('anti-slip')}>止滑</button>
         <button className={`btn ${filter === 'matt' ? 'active' : ''}`} onClick={() => setFilter('matt')}>啞光</button>
+      </div>
+
+      {/* Sticky Note Bubble */}
+      <div style={{
+        position: 'sticky',
+        top: '-5px',
+        zIndex: 50,
+        background: 'var(--bg-card)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: '1px solid var(--accent-secondary)',
+        borderLeft: '4px solid var(--accent-secondary)',
+        borderRadius: '8px',
+        padding: '12px 16px',
+        marginBottom: '24px',
+        boxShadow: '0 4px 15px var(--shadow-color)'
+      }}>
+        <div style={{ fontWeight: 'bold', color: 'var(--accent-secondary)', marginBottom: '6px', fontSize: '0.95rem' }}>
+          💡 編號對照備註
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto auto 1fr', gap: '4px 12px', fontSize: '0.9rem', color: 'var(--text-bold)' }}>
+          <div>GD055</div>
+          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>正式編號為</div>
+          <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>CD-755</div>
+          
+          <div>DL106</div>
+          <div style={{ color: 'var(--text-main)', opacity: 0.8 }}>正式編號為</div>
+          <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>CD-7106</div>
+        </div>
       </div>
 
       {filteredProducts.map(product => (
