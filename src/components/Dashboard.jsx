@@ -137,50 +137,9 @@ export default function Dashboard({ setView, theme, setTheme }) {
         }} />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <h1 style={{ color: 'var(--text-inverse)', fontSize: '2.2rem', fontWeight: '900', margin: '0 0 16px 0', textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
+          <h1 style={{ color: 'var(--text-inverse)', fontSize: '2.2rem', fontWeight: '900', margin: '0', textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
             中釉廣州展指南
           </h1>
-
-          {/* Time & Weather Badge */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '16px',
-            background: 'rgba(255, 255, 255, 0.2)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            padding: '8px 16px',
-            borderRadius: '24px',
-            color: 'var(--text-inverse)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            border: '1px solid rgba(255,255,255,0.3)'
-          }}>
-            {/* Clock Section */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <FaClock style={{ opacity: 0.9 }} />
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>{formattedDate}</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '1px', lineHeight: '1' }}>
-                  {formattedTime}
-                </div>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.3)' }} />
-
-            {/* Weather Section */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '1.4rem', lineHeight: '1' }}>{weather.emoji}</span>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>廣州 {weather.desc}</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 'bold', lineHeight: '1' }}>
-                  {weather.temp}°C
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       
@@ -199,20 +158,57 @@ export default function Dashboard({ setView, theme, setTheme }) {
       </div>
 
       <h3 style={{ marginTop: '24px' }}>快速導航</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px' }} onClick={() => setView('map')}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px', marginBottom: '0' }} onClick={() => setView('map')}>
           <FaMapMarkedAlt size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
           <div style={{ fontWeight: '600' }}>展磚說明</div>
         </div>
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px' }} onClick={() => setView('products')}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px', marginBottom: '0' }} onClick={() => setView('products')}>
           <FaBookOpen size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
           <div style={{ fontWeight: '600' }}>小展冊說明</div>
         </div>
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px', gridColumn: 'span 2' }} onClick={() => setView('transport')}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', padding: '24px 16px', gridColumn: 'span 2', marginBottom: '0' }} onClick={() => setView('transport')}>
           <FaBus size={32} color="var(--accent-primary)" style={{ marginBottom: '12px' }} />
           <div style={{ fontWeight: '600' }}>送接機&包車</div>
         </div>
       </div>
+
+      {/* Moved Time & Weather Widget */}
+      <div className="card" style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '24px',
+        padding: '24px 16px',
+        color: 'var(--text-bold)',
+        marginBottom: '0'
+      }}>
+        {/* Clock Section */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <FaClock size={24} style={{ color: 'var(--accent-primary)' }} />
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-main)', marginBottom: '2px' }}>{formattedDate}</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '1px', lineHeight: '1' }}>
+              {formattedTime}
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{ width: '1px', height: '40px', background: 'var(--border-color)' }} />
+
+        {/* Weather Section */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '2rem', lineHeight: '1' }}>{weather.emoji}</span>
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-main)', marginBottom: '2px' }}>廣州 {weather.desc}</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 'bold', lineHeight: '1' }}>
+              {weather.temp}°C
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
