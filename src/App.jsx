@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaHome, FaMap, FaLayerGroup, FaBusAlt } from 'react-icons/fa';
 import Dashboard from './components/Dashboard';
 import ExhibitionMap from './components/ExhibitionMap';
@@ -7,14 +7,20 @@ import TransportSchedule from './components/TransportSchedule';
 
 function App() {
   const [view, setView] = useState('home');
+  const [theme, setTheme] = useState(localStorage.getItem('app-theme') || 'blue');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('app-theme', theme);
+  }, [theme]);
 
   const renderView = () => {
     switch(view) {
-      case 'home': return <Dashboard setView={setView} />;
+      case 'home': return <Dashboard setView={setView} theme={theme} setTheme={setTheme} />;
       case 'map': return <ExhibitionMap />;
       case 'products': return <ProductCatalog />;
       case 'transport': return <TransportSchedule />;
-      default: return <Dashboard setView={setView} />;
+      default: return <Dashboard setView={setView} theme={theme} setTheme={setTheme} />;
     }
   };
 

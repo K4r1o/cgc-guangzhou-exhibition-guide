@@ -20,9 +20,9 @@ export default function ExhibitionMap() {
       onClick={() => handleZoneClick(id)}
       style={{
         position: 'absolute',
-        background: activeZone === id ? 'var(--accent-cyan)' : 'rgba(102, 252, 241, 0.15)',
-        border: `1px solid ${activeZone === id ? '#fff' : 'var(--accent-cyan)'}`,
-        color: activeZone === id ? '#000' : 'var(--accent-cyan)',
+        background: activeZone === id ? 'var(--accent-primary)' : 'var(--bg-card)',
+        border: `1px solid ${activeZone === id ? 'var(--bg-main)' : 'var(--accent-primary)'}`,
+        color: activeZone === id ? 'var(--text-inverse)' : 'var(--accent-primary)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -31,7 +31,7 @@ export default function ExhibitionMap() {
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         borderRadius: '4px',
-        boxShadow: activeZone === id ? '0 0 15px var(--accent-cyan)' : 'none',
+        boxShadow: activeZone === id ? '0 0 15px var(--shadow-hover)' : 'none',
         zIndex: 10,
         ...style
       }}
@@ -51,23 +51,23 @@ export default function ExhibitionMap() {
           position: 'relative', 
           width: '100%', 
           aspectRatio: '1 / 1.2', 
-          borderBottom: '2px dashed var(--accent-teal)',
-          background: 'rgba(31,40,51,0.5)',
+          borderBottom: '2px dashed var(--accent-secondary)',
+          background: 'var(--bg-main)',
           borderRadius: '8px 8px 0 0'
         }}>
           {/* Entrance Indicator */}
-          <div style={{ position: 'absolute', bottom: '10px', width: '100%', textAlign: 'center', color: 'var(--accent-teal)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ position: 'absolute', bottom: '10px', width: '100%', textAlign: 'center', color: 'var(--accent-secondary)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <span style={{ fontSize: '0.85rem', letterSpacing: '2px' }}>主走道 (ENTRANCE)</span>
             <FaLocationArrow style={{ transform: 'rotate(-45deg)', marginTop: '4px' }} />
           </div>
 
           {/* Walls */}
           {/* Back Wall */}
-          <div style={{ position: 'absolute', top: '0', left: '0', right: '0', height: '4px', background: 'var(--panel-bg)', border: '1px solid var(--accent-teal)' }}></div>
+          <div style={{ position: 'absolute', top: '0', left: '0', right: '0', height: '4px', background: 'var(--bg-card)', border: '1px solid var(--accent-secondary)' }}></div>
           {/* Left Wall */}
-          <div style={{ position: 'absolute', top: '0', bottom: '0', left: '0', width: '4px', background: 'var(--panel-bg)', border: '1px solid var(--accent-teal)' }}></div>
+          <div style={{ position: 'absolute', top: '0', bottom: '0', left: '0', width: '4px', background: 'var(--bg-card)', border: '1px solid var(--accent-secondary)' }}></div>
           {/* Right Wall */}
-          <div style={{ position: 'absolute', top: '0', bottom: '0', right: '0', width: '4px', background: 'var(--panel-bg)', border: '1px solid var(--accent-teal)' }}></div>
+          <div style={{ position: 'absolute', top: '0', bottom: '0', right: '0', width: '4px', background: 'var(--bg-card)', border: '1px solid var(--accent-secondary)' }}></div>
 
           {/* Zones Based on User Blueprint */}
           {/* Outer Back Wall: A, B */}
@@ -88,7 +88,7 @@ export default function ExhibitionMap() {
         </div>
       </div>
 
-      <h3 style={{ marginTop: '24px', marginBottom: '16px', color: 'var(--accent-cyan)' }}>各區展品明細</h3>
+      <h3 style={{ marginTop: '24px', marginBottom: '16px', color: 'var(--accent-primary)' }}>各區展品明細</h3>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {exhibitMap.map((zone) => (
           <div 
@@ -96,15 +96,15 @@ export default function ExhibitionMap() {
             id={`zone-card-${zone.id}`}
             className="card" 
             style={{ 
-              borderColor: activeZone === zone.id ? 'var(--accent-cyan)' : 'rgba(102, 252, 241, 0.1)',
-              boxShadow: activeZone === zone.id ? '0 0 15px rgba(102, 252, 241, 0.2)' : 'none',
+              borderColor: activeZone === zone.id ? 'var(--accent-primary)' : 'var(--border-color)',
+              boxShadow: activeZone === zone.id ? '0 0 15px var(--shadow-hover)' : 'none',
               transform: activeZone === zone.id ? 'scale(1.02)' : 'scale(1)',
               padding: '0',
               overflow: 'hidden'
             }}
           >
             {Array.isArray(zone.image) ? (
-              <div style={{ display: 'flex', overflowX: 'auto', gap: '2px', background: '#000', paddingBottom: '2px' }}>
+              <div style={{ display: 'flex', overflowX: 'auto', gap: '2px', background: 'var(--bg-main)', paddingBottom: '2px' }}>
                 {zone.image.map((img, idx) => (
                   <img 
                     key={idx} 
@@ -127,9 +127,9 @@ export default function ExhibitionMap() {
                   display: 'inline-block', 
                   width: '28px', 
                   height: '28px', 
-                  background: activeZone === zone.id ? 'var(--accent-cyan)' : 'var(--panel-bg)',
-                  color: activeZone === zone.id ? 'var(--bg-color)' : 'var(--accent-cyan)',
-                  border: '1px solid var(--accent-cyan)',
+                  background: activeZone === zone.id ? 'var(--accent-primary)' : 'var(--bg-card)',
+                  color: activeZone === zone.id ? 'var(--text-inverse)' : 'var(--accent-primary)',
+                  border: '1px solid var(--accent-primary)',
                   borderRadius: '50%', 
                   textAlign: 'center', 
                   lineHeight: '26px',

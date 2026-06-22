@@ -29,7 +29,7 @@ export default function ProductCatalog() {
               display: 'flex', 
               overflowX: 'auto', 
               gap: '2px', 
-              background: '#000',
+              background: 'var(--bg-main)',
               paddingBottom: '2px'
             }}>
               {product.images.map((img, idx) => (
@@ -49,7 +49,7 @@ export default function ProductCatalog() {
           )}
 
           <div style={{ padding: '20px' }}>
-            <div className="card-title" style={{ color: 'var(--accent-cyan)', fontSize: '1.3rem' }}>{product.name}</div>
+            <div className="card-title" style={{ color: 'var(--accent-primary)', fontSize: '1.3rem' }}>{product.name}</div>
             <div className="text-small" style={{ marginBottom: '16px', letterSpacing: '1px' }}>{product.english}</div>
             
             {/* Detailed Explanations */}
@@ -76,9 +76,9 @@ export default function ProductCatalog() {
                 </div>
               </div>
 
-              <div style={{ background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', borderLeft: '3px solid var(--accent-teal)' }}>
-                <span style={{ color: 'var(--accent-teal)', fontWeight: 'bold', marginRight: '8px' }}>排程規格:</span>
-                <span style={{ fontSize: '0.9rem' }}>{product.spec}</span>
+              <div style={{ background: 'var(--bg-main)', padding: '12px', borderRadius: '8px', borderLeft: '3px solid var(--accent-secondary)' }}>
+                <span style={{ color: 'var(--accent-secondary)', fontWeight: 'bold', marginRight: '8px' }}>排程規格:</span>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-bold)' }}>{product.spec}</span>
               </div>
 
             </div>
