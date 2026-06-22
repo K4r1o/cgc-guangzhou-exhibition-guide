@@ -48,11 +48,11 @@ export default function TransportSchedule({ highlightId }) {
           } : { transition: 'all 0.3s ease' }}
         >
           <div className="flex-between" style={{ marginBottom: '8px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: isHighlighted ? 'var(--text-inverse)' : 'var(--accent-secondary)' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: isHighlighted ? 'var(--accent-primary)' : 'var(--accent-secondary)' }}>
               {isHighlighted && <span style={{ marginRight: '6px' }}>👉</span>}
-              {item.date}
+              <span style={{ color: isHighlighted ? 'var(--text-bold)' : 'inherit' }}>{item.date}</span>
             </div>
-            <div className="badge" style={isHighlighted ? { background: 'var(--accent-primary)', color: '#000' } : {}}>{item.time}</div>
+            <div className="badge" style={isHighlighted ? { background: 'var(--accent-primary)', color: 'var(--text-inverse)' } : {}}>{item.time}</div>
           </div>
           
           <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px', fontSize: '0.9rem' }}>
