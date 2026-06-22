@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import transportData from '../data/transport.json';
 
 export default function TransportSchedule() {
-  const [tab, setTab] = useState('pickup');
+  const [tab, setTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const renderSchedule = (data) => {
@@ -20,7 +20,7 @@ export default function TransportSchedule() {
     }
 
     return filteredData.map((item, index) => (
-      <div key={index} className="card">
+      <div key={`${item.date}-${item.time}-${index}`} className="card">
         <div className="flex-between" style={{ marginBottom: '8px' }}>
           <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--accent-secondary)' }}>{item.date}</div>
           <div className="badge">{item.time}</div>
@@ -55,6 +55,24 @@ export default function TransportSchedule() {
         </div>
       </div>
     ));
+  };
+
+  // 取得當前標籤頁的資料
+  const getCurrentData = () => {
+    if (tab === 'all') {
+      const all = [
+        ...transportData.pickup,
+        ...transportData.dropoff,
+        ...transportData.charter
+      ];
+      // 依照日期與時間排序
+      return all.sort((a, b) => {
+        const timeA = new Date(`${a.date}T${(a.time || '00:00').padStart(5, '0')}:00`).getTime();
+        const timeB = new Date(`${b.date}T${(b.time || '00:00').padStart(5, '0')}:00`).getTime();
+        return timeA - timeB;
+      });
+    }
+    return transportData[tab];
   };
 
   return (
@@ -93,13 +111,14 @@ export default function TransportSchedule() {
       </div>
       
       <div className="tabs">
+        <button className={`btn ${tab === 'all' ? 'active' : ''}`} onClick={() => setTab('all')}>全部</button>
         <button className={`btn ${tab === 'pickup' ? 'active' : ''}`} onClick={() => setTab('pickup')}>接機</button>
         <button className={`btn ${tab === 'dropoff' ? 'active' : ''}`} onClick={() => setTab('dropoff')}>送機</button>
         <button className={`btn ${tab === 'charter' ? 'active' : ''}`} onClick={() => setTab('charter')}>包車</button>
       </div>
 
       <div style={{ marginTop: '16px' }}>
-        {renderSchedule(transportData[tab])}
+        {renderSchedule(getCurrentData())}
       </div>
     </div>
   );
